@@ -1,18 +1,16 @@
 #include "gain.h"
-#include <TH2.h>
+#include <TH1.h>
 #include <TStyle.h>
 #include <TCanvas.h>
-#include <string>
 #include <vector>
 #include <iostream>
 #include <fstream>
-#include <cmath>
 
 using namespace std;
 
 void gain::Histo()
 {
-	double Counts;
+	int Counts;
 	float Bins;
 
  //Making the histograms
@@ -48,130 +46,131 @@ void gain::Histo()
 
 
   //extracting data from F1--Hist_54--00001--00000.txt
-  ifstream F1_Hist_54("F1--Hist_54--00001--00000.txt");
-  for (int i = 6; i < 1005; ++i)
+  ifstream F1_Hist_54;
+  F1_Hist_54.open("F1--Hist_54--00001--00000.txt");
+  for (int i = 0; i < 1000; ++i)
   {
     F1_Hist_54 >> Bins >> Counts;
- //   Histo_54.push_back(Counts);       // -> saves Counts in Histo_54[]
-    h1 -> Fill(Counts);
+    h1->SetBinContent(h1->FindBin(Bins), Counts);
   }
 
   //extracting data from F1--Hist_54.5--00001--00000.txt
-  ifstream F1_Hist_54_5("F1--Hist_54.5--00001--00000.txt");
-  for (int i = 6; i < 1005; ++i)
+  ifstream F1_Hist_54_5;
+  F1_Hist_54_5.open("F1--Hist_54.5--00001--00000.txt");
+  for (int i = 0; i < 1000; ++i)
   {
     F1_Hist_54_5 >> Bins >> Counts;
- //   Histo_54_5.push_back(Counts);       // -> saves Counts in Histo_54_5[]
-    h2 -> Fill(Counts);
+    h2->SetBinContent(h2->FindBin(Bins), Counts);
   }
 
     //extracting data from F1--Hist_55--00001--00000.txt
-  ifstream F1_Hist_55("F1--Hist_55--00001--00000.txt");
-  for (int i = 6; i < 1005; ++i)
+  ifstream F1_Hist_55;
+  F1_Hist_55.open("F1--Hist_55--00001--00000.txt");
+  for (int i = 0; i < 1000; ++i)
   {
     F1_Hist_55 >> Bins >> Counts;
- //   Histo_55.push_back(Counts);       // -> saves Counts in Histo_55[]
-    h3 -> Fill(Counts);
+    h3->SetBinContent(h3->FindBin(Bins), Counts);
   }
 
     //extracting data from F1--Hist_55.5--00001--00000.txt
-  ifstream F1_Hist_55_5("F1--Hist_55.5--00001--00000.txt");
-  for (int i = 6; i < 1005; ++i)
+  ifstream F1_Hist_55_5;
+  F1_Hist_55_5.open("F1--Hist_55.5--00001--00000.txt");
+  for (int i = 0; i < 1000; ++i)
   {
     F1_Hist_55_5 >> Bins >> Counts;
- //   Histo_55_5.push_back(Counts);       // -> saves Counts in Histo_55_5[]
-    h4 -> Fill(Counts);
+    h4->SetBinContent(h4->FindBin(Bins), Counts);
   }
 
     //extracting data from F1--Hist_56-00001--00000.txt
-  ifstream F1_Hist_56("F1--Hist_56-00001--00000.txt");
-  for (int i = 6; i < 1005; ++i)
+  ifstream F1_Hist_56;
+  F1_Hist_56.open("F1--Hist_56-00001--00000.txt");
+  for (int i = 0; i < 1000; ++i)
   {
     F1_Hist_56 >> Bins >> Counts;
- //   Histo_56.push_back(Counts);       // -> saves Counts in Histo_56[]
-    h5 -> Fill(Counts);
+    h5->SetBinContent(h5->FindBin(Bins), Counts);
   }
 
     //extracting data from F1--Hist_56.5--00000.txt
-  ifstream F1_Hist_56_5("F1--Hist_56.5--00000.txt");
-  for (int i = 6; i < 1005; ++i)
+  ifstream F1_Hist_56_5;
+  F1_Hist_56_5.open("F1--Hist_56.5--00000.txt");
+  for (int i = 0; i < 1000; ++i)
   {
     F1_Hist_56_5 >> Bins >> Counts;
- //   Histo_56_5.push_back(Counts);       // -> saves Counts in Histo_56_5[]
-    h6 -> Fill(Counts);
+    h6->SetBinContent(h6->FindBin(Bins), Counts);
   }
 
     //extracting data from F1--Hist_57--00000.txt
-  ifstream F1_Hist_57("F1--Hist_57--00000.txt");
-  for (int i = 6; i < 1005; ++i)
+  ifstream F1_Hist_57;
+  F1_Hist_57.open("F1--Hist_57--00000.txt");
+  for (int i = 0; i < 1000; ++i)
   {
     F1_Hist_57 >> Bins >> Counts;
- //   Histo_57.push_back(Counts);       // -> saves Counts in Histo_57[]
-    h7 -> Fill(Counts);
+    h7->SetBinContent( h7->FindBin(Bins), Counts);
   }
 
     //extracting data from F1--Hist_57.5--00000.txt
-  ifstream F1_Hist_57_5("F1--Hist_57.5--00000.txt");
-  for (int i = 6; i < 1005; ++i)
+  ifstream F1_Hist_57_5;
+  F1_Hist_57_5.open("F1--Hist_57.5--00000.txt");
+  for (int i = 0; i < 1000; ++i)
   {
     F1_Hist_57_5 >> Bins >> Counts;
- //   Histo_57_5.push_back(Counts);       // -> saves Counts in Histo_57_5[]
-    h8 -> Fill(Counts);
+    h8->SetBinContent( h8->FindBin(Bins), Counts);
   }
  
     //extracting data from F1--Hist_58--00000.txt
-  ifstream F1_Hist_58("F1--Hist_58--00000.txt");
-  for (int i = 6; i < 1005; ++i)
+  ifstream F1_Hist_58;
+  F1_Hist_58.open("F1--Hist_58--00000.txt");
+  for (int i = 0; i < 1000; ++i)
   {
     F1_Hist_58 >> Bins >> Counts;
- //   Histo_58.push_back(Counts);       // -> saves Counts in Histo_58[]
-    h9 -> Fill(Counts);
+    cout << Bins << " " << Counts << '\n';
+    h9->SetBinContent( h9->FindBin(Bins), Counts);
   }
 
 //Making the canvases
  
   //canvas for the Histo_54
   TCanvas *c1 = new TCanvas ("canvas1", "54 V"); 
-   h1 -> Fit("gaus");                                     
+   //h1 -> Fit("gaus");                                     
    h1 -> Draw();
 
        //canvas for the Histo_54_5
-  TCanvas *c2 = new TCanvas ("canvas1", "54.5 V"); 
-   h2 -> Fit("gaus");                                     
+  TCanvas *c2 = new TCanvas ("canvas2", "54.5 V"); 
+   //h2 -> Fit("gaus");                                     
    h2 -> Draw();
 
      //canvas for the Histo_55
-  TCanvas *c3 = new TCanvas ("canvas1", "55 V"); 
-   h3 -> Fit("gaus");                                     
+  TCanvas *c3 = new TCanvas ("canvas3", "55 V"); 
+   //h3 -> Fit("gaus");                                     
    h3 -> Draw();
 
      //canvas for the Histo_55_5
-  TCanvas *c4 = new TCanvas ("canvas1", "55.5 V"); 
-   h4 -> Fit("gaus");                                     
+  TCanvas *c4 = new TCanvas ("canvas4", "55.5 V"); 
+   //h4 -> Fit("gaus");                                     
    h4 -> Draw();
 
        //canvas for the Histo_56
-  TCanvas *c5 = new TCanvas ("canvas1", "56 V"); 
-   h5 -> Fit("gaus");                                     
+  TCanvas *c5 = new TCanvas ("canvas5", "56 V"); 
+   //h5 -> Fit("gaus");                                     
    h5 -> Draw();
 
        //canvas for the Histo_56_5
-  TCanvas *c6 = new TCanvas ("canvas1", "56.5 V"); 
-   h6 -> Fit("gaus");                                     
+  TCanvas *c6 = new TCanvas ("canvas6", "56.5 V"); 
+   //h6 -> Fit("gaus");                                     
    h6 -> Draw();
 
        //canvas for the Histo_57
-  TCanvas *c7 = new TCanvas ("canvas1", "57 V"); 
-   h7 -> Fit("gaus");                                     
+  TCanvas *c7 = new TCanvas ("canvas7", "57 V"); 
+   //h7 -> Fit("gaus");                                     
    h7 -> Draw();
 
        //canvas for the Histo_57.7
-  TCanvas *c8 = new TCanvas ("canvas1", "57.5 V"); 
-   h8 -> Fit("gaus");                                     
+  TCanvas *c8 = new TCanvas ("canvas8", "57.5 V"); 
+   //h8 -> Fit("gaus");                                     
    h8 -> Draw();
 
        //canvas for the Histo_58
-  TCanvas *c9 = new TCanvas ("canvas1", "58 V"); 
-   h9 -> Fit("gaus");                                     
+  TCanvas *c9 = new TCanvas ("canvas9", "58 V"); 
+   //h9 -> Fit("gaus");                                     
    h9 -> Draw();
 }
