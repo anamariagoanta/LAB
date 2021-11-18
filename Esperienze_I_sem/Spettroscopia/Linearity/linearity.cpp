@@ -3,6 +3,7 @@
 #include "TStyle.h"
 #include "TCanvas.h"
 #include <TGraphPainter.h>
+#include <TGraph.h>
 #include <cmath>
 #include <vector>
 #include <iostream>
@@ -28,7 +29,7 @@ double raw_dx(double par[3], int m)
   return par[1]+m*par[2];
 }
 
-int Cs()
+int Cs(int a = 0)
 {
   double Counts, n= 2048;
   double raw_area_gauss, raw_area_covell, raw_area_final, area_gauss, area_covell, area_final;
@@ -84,8 +85,16 @@ int Cs()
       //  Re-Fitting the histogram
   printf("\\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t\n");
   h -> Fit("gauss", "R");
-  mean = gauss -> GetParameter(1);
-  return (int)round(mean);
+  if (a == 1)
+  {
+    mean = gauss -> GetParameter(1);
+    return (int)round(mean);
+  }
+  if (a == 2)
+  {
+    sigma = gauss -> GetParameter(2);
+    return (int)round(sigma);
+  }
   //cs_error = gauss -> GetParError(1);
   area_gauss = gauss -> Integral(raw_sx(par, 3), raw_dx(par, 3));
   printf("Area under the gauss fit: %f\n",area_gauss);
@@ -98,10 +107,11 @@ int Cs()
 
      // Drawing the histogram
   h -> Draw();
+  return 0;
 
 }
 
-int Am()
+int Am(int a = 0)
 {
   double Counts, n= 2048;
   double raw_area_gauss, raw_area_covell, raw_area_final, area_gauss, area_covell, area_final;
@@ -154,8 +164,16 @@ int Am()
       //  Re-Fitting the histogram
   printf("\\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t\n");
   h -> Fit("gauss", "R");
-  mean = gauss -> GetParameter(1);
-  return (int)round(mean);
+  if (a == 1)
+  {
+    mean = gauss -> GetParameter(1);
+    return (int)round(mean);
+  }
+  if (a == 2)
+  {
+    sigma = gauss -> GetParameter(2);
+    return (int)round(sigma);
+  }
   area_gauss = gauss -> Integral(raw_sx(par, 3), raw_dx(par, 3));
   printf("Area under the gauss fit: %f\n",area_gauss);
   area_covell = covell(conteggi, raw_sx(par, 3), raw_dx(par, 3));
@@ -167,10 +185,11 @@ int Am()
 
      // Drawing the histogram
   h -> Draw();
+  return 0;
 
 }
 
-int Co(int a=0)
+int Co(int a = 0)
 {
   double Counts, n= 2048;
   double raw_area_gauss_1, raw_area_gauss_2, raw_area_covell_1, raw_area_covell_2, raw_area_final_1, raw_area_final_2, area_gauss_1, area_gauss_2, area_covell_1, area_covell_2, area_final_1, area_final_2;
@@ -245,6 +264,7 @@ int Co(int a=0)
   printf("\\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t\n");
   h -> Fit("gauss_1", "R");
   mean_1 = gauss_1 -> GetParameter(1);
+  sigma_1 = gauss_1 -> GetParameter(2);
   area_gauss_1 = gauss_1 -> Integral(raw_sx(par_1, 2), raw_dx(par_1, 2));
   printf("Area under the first gauss fit: %f\n",area_gauss_1);
   area_covell_1 = covell(conteggi, raw_sx(par_1, 2), raw_dx(par_1, 2));
@@ -255,6 +275,7 @@ int Co(int a=0)
   printf("\\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t\n");
   h -> Fit("gauss_2", "R+");
   mean_2 = gauss_2 -> GetParameter(1);
+  sigma_2 = gauss_2 -> GetParameter(2);
   area_gauss_2 = gauss_2 -> Integral(raw_sx(par_2, 2), raw_dx(par_2, 2));
   printf("Area under the second gauss fit: %f\n",area_gauss_2);
   area_covell_2 = covell(conteggi, raw_sx(par_2, 2), raw_dx(par_2, 2));
@@ -270,7 +291,14 @@ int Co(int a=0)
   {
     return (int)round(mean_2);
   }
-
+  if (a == 3)
+  {
+    return (int)round(sigma_1);
+  }
+  if (a == 4)
+  {
+    return (int)round(sigma_2);
+  }
   c -> SetLogy();// set the y-axis with log scale
 
      // Drawing the histogram
@@ -278,7 +306,7 @@ int Co(int a=0)
   return 0;
 }
 
-int Na(int a)
+int Na(int a = 0)
 {
   double Counts, n= 2048;
   double raw_area_gauss_1, raw_area_gauss_2, raw_area_covell_1, raw_area_covell_2, raw_area_final_1, raw_area_final_2, area_gauss_1, area_gauss_2, area_covell_1, area_covell_2, area_final_1, area_final_2;
@@ -352,6 +380,7 @@ int Na(int a)
   printf("\\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t\n");
   h -> Fit("gauss_1", "R");
   mean_1 = gauss_1 -> GetParameter(1);
+  sigma_1 = gauss_1 -> GetParameter(2);
   area_gauss_1 = gauss_1 -> Integral(raw_sx(par_1, 3), raw_dx(par_1, 3));
   printf("Area under the first gauss fit: %f\n",area_gauss_1);
   area_covell_1 = covell(conteggi, raw_sx(par_1, 3), raw_dx(par_1, 3));
@@ -362,6 +391,7 @@ int Na(int a)
   printf("\\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t \\ \t\n");
   h -> Fit("gauss_2", "R+");
   mean_2 = gauss_2 -> GetParameter(1);
+  sigma_2 = gauss_2 -> GetParameter(2);
   area_gauss_2 = gauss_2 -> Integral(raw_sx(par_2, 3), raw_dx(par_2, 3));
   printf("Area under the second gauss fit: %f\n",area_gauss_2);
   area_covell_2 = covell(conteggi, raw_sx(par_2, 3), raw_dx(par_2, 3));
@@ -377,7 +407,14 @@ int Na(int a)
   {
     return (int)round(mean_2);
   }
-
+  if (a == 3)
+  {
+    return (int)round(sigma_1);
+  }
+  if (a == 4)
+  {
+    return (int)round(sigma_2);
+  }
   c -> SetLogy();// set the y-axis with log scale
 
      // Drawing the histogram
@@ -388,51 +425,71 @@ int Na(int a)
 void Calibration()
 {
   int n=2048;
-  int Position[n], Energy[n];
-  int cs_mean, am_mean, co_mean_1, co_mean_2, na_mean_1, na_mean_2;
-  cs_mean = Cs();
-  am_mean = Am();
+  float Position[n], Energy[n], Position_error[n], Energy_error[n];
+  int cs_mean, am_mean, co_mean_1, co_mean_2, na_mean_1, na_mean_2, cs_sigma, am_sigma, co_sigma_1, co_sigma_2, na_sigma_1, na_sigma_2;
+  cs_mean = Cs(1);
+  cs_sigma = Cs(2);
+  am_mean = Am(1);
+  am_sigma = Am(2);
   co_mean_1 = Co(1);
   co_mean_2 = Co(2);
+  co_sigma_1 = Co(3);
+  co_sigma_2 = Co(4);
   na_mean_1 = Na(1);
   na_mean_2 = Na(2);
+  na_sigma_1 = Na(3);
+  na_sigma_2 = Na(4);
   cout << co_mean_1 << '\t' << co_mean_2 <<'\n';
   for (int i = 0; i < n; ++i)
   {
     Position[i] = 0;
     Energy[i] = 0;
+    Position_error[i] = 0;
+    Energy_error[i] = 0;
     if (i > am_mean-1 && i < am_mean+1)
     {
       Position[i] = am_mean;
       Energy[i] = 60;//keV
+      Position_error[i] = am_sigma;
+      Energy_error[i] = 0;
     }
     if (i > cs_mean-1 && i < cs_mean+1)
     {
       Position[i] = cs_mean;
       Energy[i] = 662;//keV
+      Position_error[i] = cs_sigma;
+      Energy_error[i] = 0;
     }
     if (i > co_mean_1-1 && i < co_mean_1+1)
     {
       Position[i] = co_mean_1;
       Energy[i] = 1174;//keV
+      Position_error[i] = co_sigma_1;
+      Energy_error[i] = 0;
     }
     if (i > co_mean_2-1 && i < co_mean_2+1)
     {
       Position[i] = co_mean_2;
       Energy[i] = 1332;//keV
+      Position_error[i] = co_sigma_2;
+      Energy_error[i] = 0;
     }
     if (i > na_mean_1-1 && i < na_mean_1+1)
     {
       Position[i] = na_mean_1;
       Energy[i] = 511;//keV
+      Position_error[i] = na_sigma_1;
+      Energy_error[i] = 0;
     }
     if (i > na_mean_2-1 && i < na_mean_2+1)
     {
       Position[i] = na_mean_2;
       Energy[i] = 1274;//keV
+      Position_error[i] = na_sigma_2;
+      Energy_error[i] = 0;
     }
   }
-  TGraph *calibration = new TGraph(n, Energy, Position);
+  TGraphErrors *calibration = new TGraphErrors(n, Energy, Position, Energy_error, Position_error);
   TCanvas *c = new TCanvas ("Calibration", "");
 
   TF1 *fit = new TF1("fit", "pol1", Energy[0], Energy[n]);
@@ -440,9 +497,18 @@ void Calibration()
   fit -> SetLineWidth(1);
 
   calibration -> SetTitle("Calibration of the MCA channels");
+  for (int i = n; i >= 0 ; --i)
+  {
+    double x, y;
+    calibration -> GetPoint(i, x, y);
+    if (x == 0 && y == 0)
+    {
+      calibration -> RemovePoint(i); 
+    }
+  }
   calibration -> SetMarkerColor(kAzure+2);
-  calibration -> SetMarkerSize(1);
-  calibration -> SetMarkerStyle(5);
+  calibration -> SetMarkerSize(0.8);
+  calibration -> SetMarkerStyle(21);
   calibration -> SetMarkerColorAlpha(kAzure+2, 0);
   calibration -> Fit("fit", "R");
   calibration -> Draw("AP");
